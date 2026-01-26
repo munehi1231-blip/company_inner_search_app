@@ -6,8 +6,8 @@
 # ライブラリの読み込み
 ############################################################
 import streamlit as st
-import company_inner_search_app.utils as utils
-import company_inner_search_app.constants as ct
+import utils
+import constants as ct
 
 
 ############################################################
