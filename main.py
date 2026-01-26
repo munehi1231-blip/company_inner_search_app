@@ -12,7 +12,7 @@ import logging
 # streamlitアプリの表示を担当するモジュール
 import streamlit as st
 # （自作）画面表示以外の様々な関数が定義されているモジュール
-import utils as
+import utils
 # （自作）アプリ起動時に実行される初期化処理が記述された関数
 from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
