@@ -12,13 +12,13 @@ import logging
 # streamlitアプリの表示を担当するモジュール
 import streamlit as st
 # （自作）画面表示以外の様々な関数が定義されているモジュール
-import company_inner_search_app.utils as utils
+import utils as
 # （自作）アプリ起動時に実行される初期化処理が記述された関数
-from company_inner_search_app.initialize import initialize
+from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
-import company_inner_search_app.components as cn
+import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
-import company_inner_search_app.constants as ct
+import constants as ct
 
 
 ############################################################
