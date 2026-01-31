@@ -35,6 +35,12 @@ LOGGER_NAME = "ApplicationLog"
 LOG_FILE = "application.log"
 APP_BOOT_MESSAGE = "アプリが起動されました。"
 
+############################################################
+# RAG 設定
+############################################################
+RAG_CHUNK_SIZE = 500
+RAG_CHUNK_OVERLAP = 50
+RAG_CHUNK_SEPARATOR = "\n"
 
 # ==========================================
 # LLM設定系
