@@ -122,10 +122,10 @@ def initialize_retriever():
     embeddings = OpenAIEmbeddings()
     
     # チャンク分割用のオブジェクトを作成
-text_splitter = CharacterTextSplitter(
-    chunk_size=ct.RAG_CHUNK_SIZE,
-    chunk_overlap=ct.RAG_CHUNK_OVERLAP,
-    separator=ct.RAG_CHUNK_SEPARATOR
+    text_splitter = CharacterTextSplitter(
+        chunk_size=ct.RAG_CHUNK_SIZE,
+        chunk_overlap=ct.RAG_CHUNK_OVERLAP,
+        separator=ct.RAG_CHUNK_SEPARATOR
 )
 
     # チャンク分割を実施
