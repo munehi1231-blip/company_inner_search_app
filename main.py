@@ -10,8 +10,7 @@ from dotenv import load_dotenv
 # ログ出力を行うためのモジュール
 import logging
 # streamlitアプリの表示を担当するモジュール
-import streamlit as st
-import company_inner_search_app.constants as ct
+import streamlit as ct
 st.write("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
 st.write("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
 # （自作）画面表示以外の様々な関数が定義されているモジュール
@@ -21,8 +20,8 @@ from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
 import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
+import streamlit as st
 import constants as ct
-
 
 ############################################################
 # 2. 設定関連
