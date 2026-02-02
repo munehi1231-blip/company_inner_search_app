@@ -1,4 +1,3 @@
-print("MAIN FILE:", __file__)
 """
 このファイルは、Webアプリのメイン処理が記述されたファイルです。
 """
@@ -11,7 +10,14 @@ from dotenv import load_dotenv
 # ログ出力を行うためのモジュール
 import logging
 # streamlitアプリの表示を担当するモジュール
-import streamlit as ct
+import streamlit as st
+# ブラウザタブの表示文言を設定
+st.set_page_config(
+    page_title=ct.APP_NAME,
+    layout="wide" 
+)
+
+import constants as ct
 st.write("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
 st.write("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
 # （自作）画面表示以外の様々な関数が定義されているモジュール
@@ -21,17 +27,11 @@ from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
 import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
-import streamlit as st
-import constants as ct
+
 
 ############################################################
 # 2. 設定関連
 ############################################################
-# ブラウザタブの表示文言を設定
-st.set_page_config(
-    page_title=ct.APP_NAME,
-    layout="wide" 
-)
 
 # ログ出力を行うためのロガーの設定
 logger = logging.getLogger(ct.LOGGER_NAME)
