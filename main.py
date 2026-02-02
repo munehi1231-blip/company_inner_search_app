@@ -13,7 +13,7 @@ import logging
 import streamlit as st
 # ブラウザタブの表示文言を設定
 st.set_page_config(
-    page_title="Company Inner Search,
+    page_title="Company Inner Search",
     layout="wide" 
 )
 
