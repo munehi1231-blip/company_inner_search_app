@@ -52,7 +52,11 @@ TEMPERATURE = 0.5
 # ==========================================
 # RAG参照用のデータソース系
 # ==========================================
-RAG_TOP_FOLDER_PATH = "./data"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+RAG_TOP_FOLDER_PATH = BASE_DIR / "data"
+
 SUPPORTED_EXTENSIONS = {
     ".pdf": PyMuPDFLoader,
     ".docx": Docx2txtLoader,

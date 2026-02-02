@@ -11,6 +11,8 @@ from dotenv import load_dotenv
 import logging
 # streamlitアプリの表示を担当するモジュール
 import streamlit as st
+st.write("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
+st.write("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
 # （自作）画面表示以外の様々な関数が定義されているモジュール
 import utils
 # （自作）アプリ起動時に実行される初期化処理が記述された関数
