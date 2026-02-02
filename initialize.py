@@ -132,10 +132,18 @@ def initialize_retriever():
     splitted_docs = text_splitter.split_documents(docs_all)
 
     # ベクターストアの作成
-    db = Chroma.from_documents(splitted_docs, embedding=embeddings)
+   db = Chroma.from_documents(
+    documents=splitted_docs,
+    embedding=embeddings,
+    persist_directory="data/chroma"
+)
+db.persist()
+
 
     # ベクターストアを検索するRetrieverの作成
-    st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
+st.session_state.vectorstore = db
+st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
+
 
 
 def initialize_session_state():

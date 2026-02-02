@@ -121,7 +121,3 @@ CONVERSATION_LOG_ERROR_MESSAGE = "過去の会話履歴の表示に失敗しま�
 GET_LLM_RESPONSE_ERROR_MESSAGE = "回答生成に失敗しました。"
 DISP_ANSWER_ERROR_MESSAGE = "回答表示に失敗しました。"
 
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent
-print("BASE_DIR:", BASE_DIR)

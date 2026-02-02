@@ -18,8 +18,6 @@ st.set_page_config(
 )
 
 import constants as ct
-st.write("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
-st.write("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
 # （自作）画面表示以外の様々な関数が定義されているモジュール
 import utils
 # （自作）アプリ起動時に実行される初期化処理が記述された関数
@@ -27,7 +25,7 @@ from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
 import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
-
+from components import render_references
 
 ############################################################
 # 2. 設定関連
@@ -102,64 +100,53 @@ if chat_message:
     # ==========================================
     # 7-1. ユーザーメッセージの表示
     # ==========================================
-    # ユーザーメッセージのログ出力
     logger.info({"message": chat_message, "application_mode": st.session_state.mode})
 
-    # ユーザーメッセージを表示
     with st.chat_message("user"):
         st.markdown(chat_message)
 
     # ==========================================
     # 7-2. LLMからの回答取得
     # ==========================================
-    # 「st.spinner」でグルグル回っている間、表示の不具合が発生しないよう空のエリアを表示
-    res_box = st.empty()
-    # LLMによる回答生成（回答生成が完了するまでグルグル回す）
     with st.spinner(ct.SPINNER_TEXT):
         try:
-            # 画面読み込み時に作成したRetrieverを使い、Chainを実行
             llm_response = utils.get_llm_response(chat_message)
         except Exception as e:
-            # エラーログの出力
             logger.error(f"{ct.GET_LLM_RESPONSE_ERROR_MESSAGE}\n{e}")
-            # エラーメッセージの画面表示
             st.error(utils.build_error_message(ct.GET_LLM_RESPONSE_ERROR_MESSAGE), icon=ct.ERROR_ICON)
-            # 後続の処理を中断
             st.stop()
-    
+
     # ==========================================
     # 7-3. LLMからの回答表示
     # ==========================================
     with st.chat_message("assistant"):
         try:
-            # ==========================================
-            # モードが「社内文書検索」の場合
-            # ==========================================
             if st.session_state.mode == ct.ANSWER_MODE_1:
-                # 入力内容と関連性が高い社内文書のありかを表示
                 content = cn.display_search_llm_response(llm_response)
 
-            # ==========================================
-            # モードが「社内問い合わせ」の場合
-            # ==========================================
+                docs = st.session_state.vectorstore.similarity_search(
+                    chat_message,
+                    k=5
+                )
+                render_references(docs)
+
             elif st.session_state.mode == ct.ANSWER_MODE_2:
-                # 入力に対しての回答と、参照した文書のありかを表示
                 content = cn.display_contact_llm_response(llm_response)
-            
-            # AIメッセージのログ出力
-            logger.info({"message": content, "application_mode": st.session_state.mode})
+
+            logger.info(
+                {"message": content, "application_mode": st.session_state.mode}
+            )
+
         except Exception as e:
-            # エラーログの出力
             logger.error(f"{ct.DISP_ANSWER_ERROR_MESSAGE}\n{e}")
-            # エラーメッセージの画面表示
-            st.error(utils.build_error_message(ct.DISP_ANSWER_ERROR_MESSAGE), icon=ct.ERROR_ICON)
-            # 後続の処理を中断
+            st.error(
+                utils.build_error_message(ct.DISP_ANSWER_ERROR_MESSAGE),
+                icon=ct.ERROR_ICON
+            )
             st.stop()
 
     # ==========================================
     # 7-4. 会話ログへの追加
     # ==========================================
-    # 表示用の会話ログにユーザーメッセージを追加
     st.session_state.messages.append({"role": "user", "content": chat_message})
-    # 表示用の会話ログにAIメッセージを追加
     st.session_state.messages.append({"role": "assistant", "content": content})

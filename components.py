@@ -6,6 +6,7 @@
 # ライブラリの読み込み
 ############################################################
 import streamlit as st
+from collections import defaultdict
 import utils
 import constants as ct
 
@@ -143,6 +144,29 @@ def display_search_llm_response(llm_response):
     # LLMからのレスポンスに参照元情報が入っており、かつ「該当資料なし」が回答として返された場合
     if llm_response["context"] and llm_response["answer"] != ct.NO_DOC_MATCH_ANSWER:
 
+def render_references(docs):
+    """
+    検索結果の Document から参照元（PDF名＋ページ）を表示する
+    """
+    refs = defaultdict(set)
+
+    for doc in docs:
+        source = doc.metadata.get("source", "不明")
+        page = doc.metadata.get("page")
+
+        # page を持つもの（主にPDF）のみ表示
+        if page is not None:
+            refs[source].add(page + 1)
+
+    if not refs:
+        return
+
+    st.subheader("📄 参照ドキュメント")
+
+    for source, pages in refs.items():
+        pages_str = ", ".join(map(str, sorted(pages)))
+        st.markdown(f"- **{source}**（{pages_str}ページ）")
+        
         # ==========================================
         # ユーザー入力値と最も関連性が高いメインドキュメントのありかを表示
         # ==========================================
