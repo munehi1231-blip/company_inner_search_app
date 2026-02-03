@@ -33,6 +33,10 @@ load_dotenv()
 ############################################################
 
 def initialize():
+
+    os.makedirs(ct.LOG_DIR_PATH, exist_ok=True)
+    ...
+
     """
     画面読み込み時に実行する初期化処理
     """
@@ -47,6 +51,9 @@ def initialize():
 
 
 def initialize_logger():
+    print("LOG_DIR_PATH:", ct.LOG_DIR_PATH)
+    print("LOG_FILE:", ct.LOG_FILE)
+
     """
     ログ出力の設定
     """
