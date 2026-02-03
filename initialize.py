@@ -105,10 +105,16 @@ def initialize_retriever():
     # ロガーを読み込むことで、後続の処理中に発生したエラーなどがログファイルに記録される
     logger = logging.getLogger(ct.LOGGER_NAME)
 
+    # ★★★ ここに追加 ★★★
+    print("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
+    print("exists:", os.path.exists(ct.RAG_TOP_FOLDER_PATH))
+    # PathオブジェクトならこちらもOK
+    # print("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
+    
     # すでにRetrieverが作成済みの場合、後続の処理を中断
     if "retriever" in st.session_state:
         return
-    
+
     # RAGの参照先となるデータソースの読み込み
     docs_all = load_data_sources()
 
@@ -117,32 +123,31 @@ def initialize_retriever():
         doc.page_content = adjust_string(doc.page_content)
         for key in doc.metadata:
             doc.metadata[key] = adjust_string(doc.metadata[key])
-    
+
     # 埋め込みモデルの用意
     embeddings = OpenAIEmbeddings()
-    
+
     # チャンク分割用のオブジェクトを作成
     text_splitter = CharacterTextSplitter(
         chunk_size=ct.RAG_CHUNK_SIZE,
         chunk_overlap=ct.RAG_CHUNK_OVERLAP,
         separator=ct.RAG_CHUNK_SEPARATOR
-)
+    )
 
     # チャンク分割を実施
     splitted_docs = text_splitter.split_documents(docs_all)
 
     # ベクターストアの作成
-   db = Chroma.from_documents(
-    documents=splitted_docs,
-    embedding=embeddings,
-    persist_directory="data/chroma"
-)
-db.persist()
-
+    db = Chroma.from_documents(
+        documents=splitted_docs,
+        embedding=embeddings,
+        persist_directory="data/chroma"
+    )
+    db.persist()
 
     # ベクターストアを検索するRetrieverの作成
-st.session_state.vectorstore = db
-st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
+    st.session_state.vectorstore = db
+    st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
 
 
 

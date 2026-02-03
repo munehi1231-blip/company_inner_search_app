@@ -38,15 +38,15 @@ APP_BOOT_MESSAGE = "アプリが起動されました。"
 ############################################################
 # RAG 設定
 ############################################################
-RAG_CHUNK_SIZE = 500
-RAG_CHUNK_OVERLAP = 50
+DEFAULT_RAG_CHUNK_SIZE = 500        # 1チャンクあたりの文字数
+DEFAULT_RAG_CHUNK_OVERLAP = 50      # チャンク間の重複文字数
 RAG_CHUNK_SEPARATOR = "\n"
 
 # ==========================================
 # LLM設定系
 # ==========================================
 MODEL = "gpt-4o-mini"
-TEMPERATURE = 0.5
+DEFAULT_LLM_TEMPERATURE = 0.5
 
 
 # ==========================================
@@ -54,7 +54,7 @@ TEMPERATURE = 0.5
 # ==========================================
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[]
 RAG_TOP_FOLDER_PATH = BASE_DIR / "data"
 
 SUPPORTED_EXTENSIONS = {
