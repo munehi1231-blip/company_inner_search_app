@@ -62,8 +62,7 @@ if not "initialized" in st.session_state:
 # -------------------------
 # サイドバー
 # -------------------------
-with st.sidebar:
-    cn.display_select_mode()
+cn.display_sidebar()
 
 # -------------------------
 # メイン画面

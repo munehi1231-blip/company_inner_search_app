@@ -22,20 +22,58 @@ def display_app_title():
     st.markdown(f"## {ct.APP_NAME}")
 
 
-def display_select_mode():
+def display_sidebar():
     """
-    回答モードのラジオボタンを表示
+    サイドバー全体を構成・表示する関数
     """
-    # 回答モードを選択する用のラジオボタンを表示
-    col1, col2 = st.columns([100, 1])
-    with col1:
-        # 「label_visibility="collapsed"」とすることで、ラジオボタンを非表示にする
-        st.session_state.mode = st.radio(
-            label="",
-            options=[ct.ANSWER_MODE_1, ct.ANSWER_MODE_2],
-            label_visibility="collapsed"
+    with st.sidebar:
+        # ===== 利用目的セクション =====
+        # サイドバーの見出し
+        st.markdown("## 利用目的")
+
+        # 回答モード選択用のラジオボタンを横幅いっぱいに配置するため、列を分割
+        col1, col2 = st.columns([100, 1])
+
+        with col1:
+            # 回答モード（例：社内文書検索 / 社内問い合わせ）をラジオボタンで選択
+            # label_visibility="collapsed" により、ラベルは表示せずUIをすっきりさせる
+            st.session_state.mode = st.radio(
+                label="",
+                options=[ct.ANSWER_MODE_1, ct.ANSWER_MODE_2],
+                label_visibility="collapsed"
+            )
+
+        # セクション区切り用の水平線
+        st.divider()
+
+        # ===== 「社内文書検索」モードの説明 =====
+        # 見出し（太字）
+        st.markdown("**【「社内文書検索」を選択した場合】**")
+
+        # 機能説明を強調表示（青枠の情報ボックス）
+        st.info("入力内容と関連性が高い社内文書のありかを検索できます。")
+
+        # 入力例をコードブロック形式で表示
+        # wrap_lines=True : 長い文章を折り返して表示
+        # language=None  : シンタックスハイライトを無効化
+        st.code(
+            "【入力例】\n社員の育成方針に関するMTGの議事録",
+            wrap_lines=True,
+            language=None
         )
 
+        # ===== 「社内問い合わせ」モードの説明 =====
+        st.markdown("**【「社内問い合わせ」を選択した場合】**")
+
+        # 社内文書をもとに回答を生成することを説明
+        st.info("質問・要望に対して、社内文書の情報をもとに回答を得られます。")
+
+        # 問い合わせ内容の入力例を表示
+        st.code(
+            "【入力例】\n人事部に所属している従業員情報を一覧化して",
+            wrap_lines=True,
+            language=None
+        )
 
 def display_initial_ai_message():
     """

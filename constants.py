@@ -54,7 +54,7 @@ DEFAULT_LLM_TEMPERATURE = 0.5
 # ==========================================
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parents[]
+BASE_DIR = Path(__file__).resolve().parents[0]
 RAG_TOP_FOLDER_PATH = BASE_DIR / "data"
 
 SUPPORTED_EXTENSIONS = {

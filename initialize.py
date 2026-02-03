@@ -112,11 +112,7 @@ def initialize_retriever():
     # ロガーを読み込むことで、後続の処理中に発生したエラーなどがログファイルに記録される
     logger = logging.getLogger(ct.LOGGER_NAME)
 
-    # ★★★ ここに追加 ★★★
-    print("RAG_TOP_FOLDER_PATH:", ct.RAG_TOP_FOLDER_PATH)
-    print("exists:", os.path.exists(ct.RAG_TOP_FOLDER_PATH))
-    # PathオブジェクトならこちらもOK
-    # print("exists:", ct.RAG_TOP_FOLDER_PATH.exists())
+ 
     
     # すでにRetrieverが作成済みの場合、後続の処理を中断
     if "retriever" in st.session_state:
