@@ -120,32 +120,28 @@ if chat_message:
     # ==========================================
     with st.chat_message("assistant"):
         try:
+            # モードが「社内文書検索」の場合
             if st.session_state.mode == ct.ANSWER_MODE_1:
+                # 入力内容と関連性が高い社内文書のありかを表示
                 content = cn.display_search_llm_response(llm_response)
 
-                docs = st.session_state.vectorstore.similarity_search(
-                    chat_message,
-                    k=5
-                )
-                render_references(docs)
-
+            # モードが「社内問い合わせ」の場合
             elif st.session_state.mode == ct.ANSWER_MODE_2:
+                # 入力に対しての回答と、参照した文書のありかを表示
                 content = cn.display_contact_llm_response(llm_response)
-
-            logger.info(
-                {"message": content, "application_mode": st.session_state.mode}
-            )
-
+            
+            # AIメッセージのログ出力
+            logger.info({"message": content, "application_mode": st.session_state.mode})
         except Exception as e:
+            # エラーログの出力
             logger.error(f"{ct.DISP_ANSWER_ERROR_MESSAGE}\n{e}")
-            st.error(
-                utils.build_error_message(ct.DISP_ANSWER_ERROR_MESSAGE),
-                icon=ct.ERROR_ICON
-            )
+            # エラーメッセージの画面表示
+            st.error(utils.build_error_message(ct.DISP_ANSWER_ERROR_MESSAGE), icon=ct.ERROR_ICON)
+            # 後続の処理を中断
             st.stop()
 
     # ==========================================
     # 7-4. 会話ログへの追加
     # ==========================================
     st.session_state.messages.append({"role": "user", "content": chat_message})
-    st.session_state.messages.append({"role": "assistant", "content": content})
+    st.session_state.messages.append({"role": "assistant", "content": content})   

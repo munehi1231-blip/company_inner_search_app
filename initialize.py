@@ -150,7 +150,7 @@ def initialize_retriever():
 
     # ベクターストアを検索するRetrieverの作成
     st.session_state.vectorstore = db
-    st.session_state.retriever = db.as_retriever(search_kwargs={"k": 5})
+    st.session_state.retriever = db.as_retriever(search_kwargs={"k": ct.TOP_K})
 
 
 

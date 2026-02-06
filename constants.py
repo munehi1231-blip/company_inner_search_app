@@ -47,7 +47,8 @@ TOP_K = 5 # → 追加行
 # LLM設定系
 # ==========================================
 MODEL = "gpt-4o-mini"
-DEFAULT_LLM_TEMPERATURE = 0.5
+# DEFAULT_LLM_TEMPERATURE = 0.5 
+TEMPERATURE = 0.5
 
 
 # ==========================================
