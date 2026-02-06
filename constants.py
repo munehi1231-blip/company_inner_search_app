@@ -41,6 +41,7 @@ APP_BOOT_MESSAGE = "アプリが起動されました。"
 DEFAULT_RAG_CHUNK_SIZE = 500        # 1チャンクあたりの文字数
 DEFAULT_RAG_CHUNK_OVERLAP = 50      # チャンク間の重複文字数
 RAG_CHUNK_SEPARATOR = "\n"
+TOP_K = 5 # → 追加行
 
 # ==========================================
 # LLM設定系
