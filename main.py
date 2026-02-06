@@ -25,7 +25,7 @@ from initialize import initialize
 # （自作）画面表示系の関数が定義されているモジュール
 import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
-from components import render_references
+# from components import render_references
 
 ############################################################
 # 2. 設定関連
